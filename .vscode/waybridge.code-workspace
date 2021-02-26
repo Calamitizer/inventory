@@ -1,0 +1,12 @@
+{
+  "folders": [
+    {
+      "name": "waybridge",
+      "path": "../",
+    },
+  ],
+  "settings": {
+    // Tell VS Code to use the app's TypeScript version
+    "typescript.tsdk": "./node_modules/typescript/lib",
+  },
+}
