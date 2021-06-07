@@ -1,4 +1,8 @@
-/* We want `perfect-scrollbar` to always be visible. */
+/**
+ * We override `perfect-scrollbar`'s styling because
+ * we want `perfect-scrollbar` to be always visible.
+ */
+
 .ps > .ps__rail-x,
 .ps > .ps__rail-y {
   opacity: 0.6;
