@@ -40,7 +40,10 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
 const PartsTable: React.FC<Props> = ({ parts }) => {
   const classes = useStyles();
   const createRow = (part: Part) => (
-    <PartRow {...{ part }} key={part.id} />
+    <PartRow
+      {...{ part }}
+      key={part.id}
+    />
   );
 
   return (

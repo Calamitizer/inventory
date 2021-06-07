@@ -1,87 +1,29 @@
-# Waybridge frontend coding challenge
+# Parts Inventory Demo
 
-Welcome to the Waybridge frontend coding challenge! Please read the following instructions carefully.
+#### Deployment instructions
 
+Run `yarn` first to install dependencies. You may need to run `yarn --network-timeout 1000000` if yarn gives you a network error (see note below).
 
-# The Story
+The server & client scripts are unchanged — `yarn server` & `yarn client`.
 
-Monique runs a very successful manufacturing business making widgets. These
-widgets are so popular that Monique has a hard time keeping up with demand.
-Monique inherited a tool that displays information about her inventory, but she
-does not find it very helpful. Your job is to build a better tool or improve
-upon the existing app. Monique will use this tool to search through her
-inventory, find out of stock items, and find items that are low on inventory so
-she can order replacements.
+#### Overview
 
+- The file structure is roughly analogous to the DOM structure, e.g. `<PartsTable />`, `<SidePanel />`, `<FilterWidgets />`, etc.
+- This app uses the `material-ui` component library.
+- The API & filter states are handled by `<PartsProvider /` & `<FilterProvider />` — tracing through those can give you a feel for the data flow.
 
-# Use cases - Monique should be able to:
+#### Stuff that could be nice
 
-- See all of her inventory
-- Search through her inventory
-- Be notified of items out of stock
-- Be notified of items that are low on stock
+- Generalizing low stock thresholding
+  - It could take a wider range of values, controllable through the slider.
+  - It could depend on the standards for a specific part (e.g. a thousand pistachios is low stock, but a thousand invisibility cloaks is plenty).
+- Various other widgets for filtering by different part properties
+- Sorting functionality for each column wouldn't be too bad
+- A virtualized / infinite table could be cool, if there were a ton more parts
+- Unit testing. For components re-used on a wider scale or projects held to enterprise standards, it's obviously a must.
+  - I would probably have focused on unit-testing the part & filter logic first, e.g. testing `PartsClient` & `FilterReducer`.
+  - Then, unit tests for the widgets. The two here are controlled components, so their state is controlled directly by business logic instead of native events. This means the state of your inputs is a first-class citizen & can be accessed anywhere it's needed, including mocking in a test.
 
+#### A note on `yarn` errors & bundle size
 
-# Evaluation criteria
-
-## Technology requirements
-
-**React** and **JavaScript** are mandatory requirements. Apart from this, you
-can use any libraries, task runners and build processors. ES6 and TypeScript are
-highly encouraged.
-
-
-## Grading requirements
-
-- Is the code easy to follow and reuse?
-- Does the code demonstrate an understanding of React best practices?
-- Is the user experience of the app awesome?
-  - Are there any bugs?
-  - Is the inventory information easy to digest?
-- Is the code documented nicely?
-- Is the code well-tested?
-- Does the app meet product requirements?
-
-
-# Getting started
-
-- Clone this repository.
-- Complete your project as described above within your local repository.
-
-
-# Submission
-
-- Create a git bundle: `git bundle create your_name.bundle --all`
-- Email the bundle file to your point of contact.
-
-
-# How to run the API server
-
-The boilerplate includes a small service for data fetching. The file
-`server/server.json` includes all the necessary data to achieve the goal. Please
-follow the steps below to start the server:
-
-```
-yarn or npm install .
-yarn server or npm run server
-```
-
-Check [json-server](https://github.com/typicode/json-server) for more information.
-
-
-# Time limit
-
-There is no hard time limit for this coding challenge. However, we believe that
-4-5 hours is sufficient to satisfy 
-[Monique's use cases](#use-cases-monique-should-be-able-to) for the tool. While 
-we appreciate all the effort put into the challenge, we also do not want to take 
-up too much of your time. Our advice is to focus on making sure that the 
-application works properly & has some tests, and then moving on to crush the other 
-[Grading requirements](#grading-requirements). And please include some comments 
-about what you would like to improve if given more time. Happy coding!
-
-
-# Questions
-
-Collaboration is a big part of the culture at Waybridge and we're very happy to
-answer any questions that you have about the challenge.
+The dependency of `@material-ui/icons` means that the raw size of `node_modules` is quite large. This is why yarn might complain about network connection when installing dependencies, thinking that something must be wrong. However, because of selective importing and bundling, only a very small fraction of this is actually minified to the browser.
